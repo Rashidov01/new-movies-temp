@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS lesson 9</title>
+  <link rel="stylesheet" href="css/bootstrap5.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .movie__img {
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body style="background-color: #16151A;">
+
+  <div class="movies container-xl">
+    <header class="py-4 mb-3" style="border-bottom: 3px solid #6E7F80;">
+      <h1 class="mb-0 display-6 text-center fw-bold bg-danger text-white py-2">Movies</h1>
+    </header>
+
+    <section>
+      <h2 class="visually-hidden">Movies list</h2>
+
+      <form class="row mb-5 js-movie-search-form justify-content-between" action="https://echo.htmlacademy.ru" method="GET">
+        <div class="col-md-6">
+          <input class="form-control js-movie-search-input" type="search" name="title" placeholder="Movie title" aria-label="Movie title">
+        </div>
+        <div class="col-md-6">
+          <select class="form-control" name="genre" aria-label="Genre">
+            <option value="All">All</option>
+          </select>
+        </div>
+
+        <div class="col-md-6 d-flex mt-3">
+          <div class="input-group me-2">
+            <input type="number" class="form-control js-movie-search-start-year" placeholder="start year" >
+          </div>
+          <div class="input-group me-2">
+            <input type="number" class="form-control js-movie-search-end-year" placeholder="end year" >
+          </div>
+          <div class="input-group">
+            <input type="number" class="form-control js-movie-search-rating" placeholder="rating">
+          </div>
+        </div>
+
+        <div class="col-md-6 d-flex mt-3">
+          <button class="btn btn-danger me-2 js-search-by-sort-year">sort by year</button>
+          <button class="btn btn-primary" type="submit">find</button>
+        </div>
+
+
+      </form>
+
+      <div class="movies__list row">
+        <p class="text-center">Movies are coming... Please, wait.</p>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- MODALS -->
+  <div class="movie-info-modal modal fade" id="more-info-modal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row align-items-center mb-3">
+            <div class="col-lg-5">
+              <h3 class="movie-info-modal__title mb-md-0">Movie</h3>
+            </div>
+            <div class="col-lg-7">
+              <div class="d-flex flex-wrap small">
+                <span class="d-flex align-items-center me-3">
+                  <img class="me-1" src="img/icon-star.svg" alt="" width="16" height="16">
+                  <span class="movie-info-modal__rating">7.7</span>
+                </span>
+                <span class="d-flex align-items-center me-3">
+                  <img class="me-1" src="img/icon-calendar-event.svg" alt="" width="16" height="16">
+                  <span class="movie-info-modal__year">2001</span>
+                </span>
+                <span class="d-flex align-items-center ">
+                  <img class="me-1" src="img/icon-clock.svg" alt="" width="16" height="16">
+                  <span class="movie-info-modal__duration">1 hr 20 min</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-5 mb-3 mb-lg-0">
+              <div class="ratio ratio-16x9">
+                <iframe class="movie-info-modal__iframe d-block w-100 border-0 rounded" src="https://www.youtube-nocookie.com/embed/j51ae5KM7N0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <p class="movie-info-modal__categories">Thriller, Action, Comedy</p>
+              <p class="movie-info-modal__summary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil itaque impedit doloribus! Aperiam vero nostrum quaerat quos magnam molestiae hic officia eveniet similique eligendi. Voluptate obcaecati deserunt veritatis porro laboriosam?</p>
+              <div>
+                <a class="movie-info-modal__imdb-link" href="#" target="_blank">Show on IMDb</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- TEMPLATES -->
+  <template id="movies-item-template">
+    <div class="movies__item col-sm-6 col-md-4 mb-4">
+      <div class="movie card h-100 bg-light">
+        <img class="movie__img card-img-top" src="https://picsum.photos/300/170" alt="rasm" width="300" height="170">
+        <div class="card-body d-flex flex-column">
+          <h3 class="movie__title h5 mb-1 card-title text-truncate">Movie title</h3>
+          <div class="d-flex flex-wrap justify-content-between mb-3 small">
+            <span class="d-flex align-items-center me-2">
+              <img class="me-1" src="img/icon-star.svg" alt="" width="16" height="16">
+              <span class="movie__rating">7.7</span>
+            </span>
+            <span class="d-flex align-items-center me-2">
+              <img class="me-1" src="img/icon-calendar-event.svg" alt="" width="16" height="16">
+              <span class="movie__year">2001</span>
+            </span>
+            <span class="d-flex align-items-center ">
+              <img class="me-1" src="img/icon-clock.svg" alt="" width="16" height="16">
+              <span class="movie__duration">1 hr 20 min</span>
+            </span>
+          </div>
+          <p class="movie__categories card-text text-secondary">Thriller, Comedy, Action</p>
+          <button class="d-block w-100 mt-auto btn btn-danger btn-sm text-white js-more-info-button" data-bs-toggle="modal" data-bs-target="#more-info-modal">More info</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="js/bootstrap5.bundle.min.js"></script>
+  <script src="js/normalized-movies.js"></script>
+  <script src="js/movies-dars.js"></script>
+</body>
+</html>
