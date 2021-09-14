@@ -119,11 +119,11 @@ function onMovieSearchFormSubmit (evt) {
   const titleRegex = new RegExp(elMovieSearchInput.value, 'gi');
   // const foundMovies = findMovies(titleRegex).sort((a, b) => b.imdbRating - a.imdbRating);
 
-  if (foundMovies.length > 0) {
-    // showMovies(foundMovies);
-  } else {
-    elMoviesList.innerHTML = '<div class="col-12">No film found</div>';
-  }
+  // if (foundMovies.length > 0) {
+  //   // showMovies(foundMovies);
+  // } else {
+  //   elMoviesList.innerHTML = '<div class="col-12">No film found</div>';
+  // }
 }
 
 if (elMovieSearchForm) {
