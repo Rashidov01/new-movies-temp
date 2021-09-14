@@ -7,7 +7,6 @@ const elMoviesList = document.querySelector('.movies__list');
 
 const elMoviesItemTemplate = document.querySelector('#movies-item-template').content;
 
-
 // MODAL
 const elMovieInfoModal = document.querySelector('.movie-info-modal');
 const elMovieInfoModalTitle = elMovieInfoModal.querySelector('.movie-info-modal__title');
@@ -23,6 +22,7 @@ const elMovieInfoModalImdbLink = elMovieInfoModal.querySelector('.movie-info-mod
 const elSearchStarYear = document.querySelector(".js-movie-search-start-year");
 const elSearchEndYear = document.querySelector(".js-movie-search-end-year");
 const elSearchRating = document.querySelector(".js-movie-search-rating");
+
 function getUniqueGenres () {
   movies.forEach(movie => {
     movie.categories.forEach(category => {
@@ -32,7 +32,7 @@ function getUniqueGenres () {
     });
   });
   genres.sort();
-}
+};
 
 function showGenreOptions() {
   const elGenresFragment = document.createDocumentFragment();
@@ -43,11 +43,11 @@ function showGenreOptions() {
     elGenresFragment.appendChild(elGenreOption);
   });
   elGenresSelect.appendChild(elGenresFragment);
-}
+};
 
 function getHoursStringFromMinutes (minutes) {
   return `${Math.floor(minutes / 60)} hrs ${minutes % 60} mins`;
-}
+};
 
 function showMovies (movies) {
   elMoviesList.innerHTML = '';
@@ -68,7 +68,7 @@ function showMovies (movies) {
   }
 
   elMoviesList.appendChild(elMoviesFragment);
-}
+};
 
 function updateMovieInfoModal (imdbId) {
   const movie = movies.find(movie => movie.imdbId === imdbId);
@@ -81,7 +81,7 @@ function updateMovieInfoModal (imdbId) {
   elMovieInfoModalCategories.textContent = movie.categories.join(', ');
   elMovieInfoModalSummary.textContent = movie.summary;
   elMovieInfoModalImdbLink.href = `https://www.imdb.com/title/${movie.imdbId}`;
-}
+};
 
 
 elMoviesList.addEventListener('click', evt => {
@@ -102,7 +102,7 @@ function findMovies (titleRegex) {
     console.log(elSearchStarYear.value, elSearchEndYear.value);
     return meetsCriteria;
   });
-}
+};
 
 function filterMovies(){
   const filteredMovies = movies.sort(function(a,b){
@@ -110,25 +110,25 @@ function filterMovies(){
   })
   console.log(filteredMovies);
   showMovies(filteredMovies);
-}
+};
 
 
 function onMovieSearchFormSubmit (evt) {
   evt.preventDefault();
 
   const titleRegex = new RegExp(elMovieSearchInput.value, 'gi');
-  // const foundMovies = findMovies(titleRegex).sort((a, b) => b.imdbRating - a.imdbRating);
+  const foundMovies = findMovies(titleRegex);
 
-  // if (foundMovies.length > 0) {
-  //   // showMovies(foundMovies);
-  // } else {
-  //   elMoviesList.innerHTML = '<div class="col-12">No film found</div>';
-  // }
-}
+  if (foundMovies.length > 0) {
+    showMovies(foundMovies);
+  } else {
+    elMoviesList.innerHTML = '<div class="col-12">No film found</div>';
+  }
+};
 
 if (elMovieSearchForm) {
   elMovieSearchForm.addEventListener('submit', onMovieSearchFormSubmit);
-}
+};
 
 const elSortByYear = document.querySelector(".js-search-by-sort-year");
 
